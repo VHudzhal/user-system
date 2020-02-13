@@ -18,6 +18,10 @@ export class AppComponent {
 
   }
 
+  get isLoggedIn(){
+    return this.loginService.isLoggedIn
+  }
+
   getUsers(){
     this.router.navigateByUrl('/users')
   }
