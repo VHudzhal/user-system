@@ -98,7 +98,7 @@ server.get("/*", function (req, res) {
 server.get("/users", passport.authenticate("jwt", {session: false}), function(req, res){
   const select = `select * from heroku_67534a51b3f7e0f.users`
   connection.query(select, (err, result) => {
-    res.json({resulr: result})
+    res.json({result: result})
     return
   })
 })
