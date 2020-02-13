@@ -1,6 +1,8 @@
 const express = require('express');
 const bodyParser = require("body-parser");
-const uuid = require("uuid/v4")
+const uuid = require("uuid/v4");
+const path = require('path');
+
 
 const jwt = require('jsonwebtoken');
 
@@ -34,6 +36,8 @@ let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
 passport.use(strategy);
 
 /* ===========================SERVER USE=========================== */
+server.use(express.static(__dirname + '/dist'))
+
 server.use(jsonParser);
 
 server.use(passport.initialize())
@@ -86,9 +90,8 @@ connection.connect(function(err){
 
 
 /* ============================================================== */
-server.get("/", function (req, res) {
-  console.log("Start page requested.");
-  res.json("Start page requested.")
+server.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname + '/dist/index.html'))
 });
 
 
@@ -326,4 +329,4 @@ server.use(function(err, req, res, next) {
 });
 
 
-server.listen(3001); 
+server.listen(process.env.PORT || 3001); 
