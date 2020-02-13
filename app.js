@@ -73,9 +73,9 @@ const mysql = require("mysql2");
 
 const connection = mysql.createConnection({
   host: "us-cdbr-iron-east-04.cleardb.net",
-  user: "b568c9b0e09305",
-  database: "heroku_191fdadb7d0c8e8",
-  password: "a8dd73f2"
+  user: "bd5cd128b15865",
+  database: "heroku_67534a51b3f7e0f",
+  password: "09c5608d"
 });
 connection.connect(function(err){
   if (err) {
