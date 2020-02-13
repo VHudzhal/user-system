@@ -220,47 +220,48 @@ server.delete("/users/:id", passport.authenticate("jwt", {session: false}), func
 })
 // LOGIN 
 server.post("/auth/login", function(req, res, next) {
-  const { login, password } = req.body;
-  if (login && password ) {
-    const select = `
-    select u.id, u.name, u.login, u.email, u.password, u.created_at, u.update_at, u.admin, e.can_view_users, e.can_edit_users, 
-           e.can_delete_users, e.can_view_details, e.can_view_details_full, e.can_edit_users_full from users u
-           join entitlements e on e.user_id = u.id
-           where login=?`;
+  // const { login, password } = req.body;
+  // if (login && password ) {
+  //   const select = `
+  //   select u.id, u.name, u.login, u.email, u.password, u.created_at, u.update_at, u.admin, e.can_view_users, e.can_edit_users, 
+  //          e.can_delete_users, e.can_view_details, e.can_view_details_full, e.can_edit_users_full from users u
+  //          join entitlements e on e.user_id = u.id
+  //          where login=?`;
 
-    connection.query(select, [login], function(err, result){
-      if (err){
-        res.status(500).json({err: err})
-      }
-      console.log(result.length + "login")
-      try{
-        if (result.length === 0){
-          throw ({msg: "User not found", status: 403})
-        }
-        if (result[0].login !== login){
-          throw ({msg: "login is incorrect", status: 403})
-        }
-        if (result[0].password !== password){
-          throw ({msg: "Password is incorrect", status: 403})
-        }
-        if (result[0].password == password && result[0].login == login){
+  //   connection.query(select, [login], function(err, result){
+  //     if (err){
+  //       res.status(500).json({err: err})
+  //     }
+  //     console.log(result.length + "login")
+  //     try{
+  //       if (result.length === 0){
+  //         throw ({msg: "User not found", status: 403})
+  //       }
+  //       if (result[0].login !== login){
+  //         throw ({msg: "login is incorrect", status: 403})
+  //       }
+  //       if (result[0].password !== password){
+  //         throw ({msg: "Password is incorrect", status: 403})
+  //       }
+  //       if (result[0].password == password && result[0].login == login){
 
-          let payload = { id: result[0].id };
-          let token = jwt.sign(payload, jwtOptions.secretOrKey, {expiresIn:'15m'});
-          let refreshToken = uuid()
-          saveRefreshToken(result[0].id, refreshToken)
-          res.status(200).json({user: result[0], token: token, refreshToken: refreshToken})
-          return
-        }
+  //         let payload = { id: result[0].id };
+  //         let token = jwt.sign(payload, jwtOptions.secretOrKey, {expiresIn:'15m'});
+  //         let refreshToken = uuid()
+  //         saveRefreshToken(result[0].id, refreshToken)
+  //         res.status(200).json({user: result[0], token: token, refreshToken: refreshToken})
+  //         return
+  //       }
     
-      } catch(err){
-        console.log("error")
-        res.send(err)
-        return
-      }
-    })
+  //     } catch(err){
+  //       console.log("error")
+  //       res.send(err)
+  //       return
+  //     }
+  //   })
 
-  }
+  // }
+  res.status(200).json({msg: "succes"})
 })
 
 // LOGOUT
