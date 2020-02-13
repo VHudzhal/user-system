@@ -1,0 +1,81 @@
+<div class="wrap">
+
+    <div class="container">
+
+        <header>
+        
+            <div class="logo">
+        
+                <div class="logo-title">
+        
+                    <h1>Welcome to Web Technology</h1>
+        
+                </div>
+        
+                <div class="logo-navigate">
+        
+                    <nav>
+                
+                        <ul>
+                            <li>
+                                
+                                <a (click)="getMyPage()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">My-page</a>
+                            
+                            </li>
+
+                            <li>
+                                
+                                <a (click)="getDashboard()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+                            
+                            </li>
+
+                            <li>
+                                
+                                <a (click)="getUsers()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Users</a>
+                            
+                            </li>
+
+                            <li *ngIf="this.loginService.isLoggedIn">
+                                
+                                <a (click)="logOut()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">LogOut</a>
+                            
+                            </li>
+
+                            <li *ngIf="!this.loginService.isLoggedIn">
+                                
+                                <a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
+                            
+                            </li>
+
+                        </ul>
+                
+                    </nav>
+        
+                </div>
+        
+            </div>
+        
+        </header>
+        
+        <main>
+            <div class="container-content" [@bounceAnimation]="o.isActivated ? o.activatedRoute : ''">
+
+                <router-outlet #o="outlet"></router-outlet>
+                
+            </div>
+        
+        </main>
+
+        <footer>
+
+            <strong>Copyright </strong>
+           
+        </footer>
+
+    </div>
+
+        <router-outlet name='userEntitlements'></router-outlet>
+
+
+</div>
+
