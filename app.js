@@ -36,7 +36,7 @@ let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
 passport.use(strategy);
 
 /* ===========================SERVER USE=========================== */
-server.use(express.static(__dirname + '/dist'))
+server.use(express.static(__dirname + '/dist/user-system'))
 
 server.use(jsonParser);
 
@@ -90,14 +90,15 @@ connection.connect(function(err){
 
 
 /* ============================================================== */
-server.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname + '/dist/index.html'))
-});
+// server.get("/*", function (req, res) {
+//   res.sendFile(path.join(__dirname + '/dist/index.html'))
+// });
 
 
 server.get("/users", passport.authenticate("jwt", {session: false}), function(req, res){
   const select = `select * from users`
   connection.query(select, (err, result) => {
+    console.log(result)
     res.json(result)
     return
   })
