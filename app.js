@@ -96,7 +96,7 @@ server.get("/*", function (req, res) {
 
 
 server.get("/users", passport.authenticate("jwt", {session: false}), function(req, res){
-  const select = `select * from heroku_67534a51b3f7e0f.users`
+  const select = `select * from users`
   connection.query(select, (err, result) => {
     res.json({result: result})
     return
@@ -224,7 +224,7 @@ server.post("/auth/login", function(req, res, next) {
   if (login && password ) {
     const select = `
     select u.id, u.name, u.login, u.email, u.password, u.created_at, u.update_at, u.admin, e.can_view_users, e.can_edit_users, 
-           e.can_delete_users, e.can_view_details, e.can_view_details_full, e.can_edit_users_full from heroku_67534a51b3f7e0f.users u
+           e.can_delete_users, e.can_view_details, e.can_view_details_full, e.can_edit_users_full from users u
            join entitlements e on e.user_id = u.id
            where login=?`;
 
@@ -277,7 +277,7 @@ server.post("/auth/logout", passport.authenticate("jwt", {session: false}), func
 server.post("/auth/refreshToken", function (req, res){
   const { refreshToken } = req.body;
   console.log(refreshToken)
-  const select = 'select * from heroku_67534a51b3f7e0f.refreshToken where refreshToken=?'
+  const select = 'select * from refreshToken where refreshToken=?'
   connection.query(select, [refreshToken], function(err, result){
     if (err){
       res.status(500).json({err: err})
