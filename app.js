@@ -47,7 +47,7 @@ server.use(bodyParser.urlencoded({extended: true}))
 server.use(function (req, res, next) {
 
   // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
+  res.setHeader('Access-Control-Allow-Origin', '*');
 
   // Request methods you wish to allow
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
@@ -72,10 +72,10 @@ server.use(function (req, res, next) {
 const mysql = require("mysql2");
 
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  database: "users",
-  password: "bealong123"
+  host: "us-cdbr-iron-east-04.cleardb.net",
+  user: "b568c9b0e09305",
+  database: "heroku_191fdadb7d0c8e8",
+  password: "a8dd73f2"
 });
 connection.connect(function(err){
   if (err) {
@@ -112,7 +112,7 @@ server.post("/users", passport.authenticate("jwt", {session: false}), function (
       res.status(500).json({err: err})
     }
     console.log(result)
-    connection.query(`insert into entitlements (can_view_users, user_id) values(true, ${result.insertId})`, function(err, result){
+    connection.query(`SET FOREIGN_KEY_CHECKS = 0; insert into entitlements (can_view_users, user_id) values(true, ${result.insertId})`, function(err, result){
       res.status(200).json(`Users ${req.body.name} added`)
     })
   })
@@ -149,7 +149,7 @@ server.put("/users/:id/add-entitlements", passport.authenticate("jwt", {session:
   const { id, entitlements } = req.body
   console.log(entitlements)
   console.log(id)
-  const update = `update entitlements set ${entitlements}=true where user_id=?`
+  const update = `SET FOREIGN_KEY_CHECKS = 0; update entitlements set ${entitlements}=true where user_id=?`
   connection.query(update, [id], function(err, result){
     if (err){
       res.status(500).json({err: err})
@@ -171,7 +171,7 @@ server.put("/users/:id/delete-entitlements", passport.authenticate("jwt", {sessi
   const { id, entitlements } = req.body
   console.log(entitlements)
   console.log(id)
-  const update = `update entitlements set ${entitlements}=false where user_id=?`
+  const update = `SET FOREIGN_KEY_CHECKS = 0; update entitlements set ${entitlements}=false where user_id=?`
   connection.query(update, [id], function(err, result){
     if (err){
       res.status(500).json({err: err})
@@ -205,7 +205,7 @@ server.put("/users/:id", passport.authenticate("jwt", {session: false}), functio
 
 server.delete("/users/:id", passport.authenticate("jwt", {session: false}), function (req, res) {
   const userId = req.params.id
-  const deleteEntitlements = `delete from entitlements where user_id=?`;
+  const deleteEntitlements = `SET FOREIGN_KEY_CHECKS = 0; delete from entitlements where user_id=?`;
   connection.query(deleteEntitlements, [userId], function(err, result){ 
 
     const deleteUser = `delete from users where id=?`

@@ -10,7 +10,8 @@ import { IUser } from '../users/userInterface';
 })
 export class LoginService {
 
-  baseUrl = 'http://localhost:3001/auth/';
+  // baseUrl = 'http://localhost:3001/auth/';
+  baseUrl = '/auth/';
 
   currentUser: IUser;
   
