@@ -13,9 +13,7 @@ export class DashboardComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.http.get('http://localhost:3001').subscribe(data => {
-      console.log(data)
-    })
+    
 
   }
 

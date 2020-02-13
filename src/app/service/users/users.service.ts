@@ -24,10 +24,6 @@ export class UserService {
   getUsers(): Observable<IUser[]>{
     const headers = new HttpHeaders().set("access-token", localStorage.getItem("access_token"))
     return this.http.get<IUser[]>(this.baseUrl).pipe(
-      map((users: Array<IUser>) => {
-        this.users = users
-        return users
-      }),
       catchError( (err: HttpErrorResponse) => {
         console.log(err)
         return throwError(err)

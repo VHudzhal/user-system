@@ -11,9 +11,7 @@ export class MyPageComponent implements OnInit {
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get('http://localhost:3001').subscribe(data => {
-      console.log(data)
-    })
+   
 
   }
 
