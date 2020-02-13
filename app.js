@@ -90,9 +90,9 @@ connection.connect(function(err){
 
 
 /* ============================================================== */
-server.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname + '/dist/index.html'))
-});
+// server.get("/*", function (req, res) {
+//   res.sendFile(path.join(__dirname + '/dist/index.html'))
+// });
 
 
 server.get("/users", passport.authenticate("jwt", {session: false}), function(req, res){
