@@ -90,9 +90,6 @@ connection.connect(function(err){
 
 
 /* ============================================================== */
-server.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname + '/dist/user-system/index.html'))
-});
 
 
 server.get("/users", passport.authenticate("jwt", {session: false}), function(req, res){
@@ -329,5 +326,9 @@ server.use(function(err, req, res, next) {
   }
 });
 
+
+server.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname + '/dist/user-system/index.html'))
+});
 
 server.listen(process.env.PORT || 3001); 
