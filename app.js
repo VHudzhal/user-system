@@ -36,7 +36,7 @@ let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
 passport.use(strategy);
 
 /* ===========================SERVER USE=========================== */
-server.use(express.static(__dirname + '/dist/user-system'))
+// server.use(express.static(__dirname + '/dist/user-system'))
 
 server.use(jsonParser);
 
