@@ -36,11 +36,7 @@ let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
 passport.use(strategy);
 
 /* ===========================SERVER USE=========================== */
-<<<<<<< HEAD:app.js
-server.use(express.static(__dirname + '/dist/user-system'))
-=======
 // server.use(express.static(__dirname + '/dist/user-system'))
->>>>>>> develop:server/app.js
 
 server.use(jsonParser);
 
@@ -94,26 +90,16 @@ connection.connect(function(err){
 
 
 /* ============================================================== */
-<<<<<<< HEAD:app.js
 server.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname + '/dist/user-system/index.html'))
 });
-=======
-// server.get("/*", function (req, res) {
-//   res.sendFile(path.join(__dirname + '/dist/index.html'))
-// });
->>>>>>> develop:server/app.js
+
 
 
 server.get("/users", passport.authenticate("jwt", {session: false}), function(req, res){
   const select = `select * from users`
   connection.query(select, (err, result) => {
-<<<<<<< HEAD:app.js
     res.status(200).json({result: result})
-=======
-    console.log(result)
-    res.json(result)
->>>>>>> develop:server/app.js
     return
   })
 })
@@ -344,9 +330,5 @@ server.use(function(err, req, res, next) {
   }
 });
 
-<<<<<<< HEAD:app.js
 server.listen(process.env.PORT || 3001); 
-=======
 
-server.listen(process.env.PORT || 3001); 
->>>>>>> develop:server/app.js
