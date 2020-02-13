@@ -98,7 +98,7 @@ server.get("/*", function (req, res) {
 server.get("/users", passport.authenticate("jwt", {session: false}), function(req, res){
   const select = `select * from users`
   connection.query(select, (err, result) => {
-    res.json({result: result})
+    res.json({result: result[0]})
     return
   })
 })
