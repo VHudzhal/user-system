@@ -35,13 +35,13 @@
                             
                             </li>
 
-                            <li *ngIf="this.loginService.isLoggedIn">
+                            <li *ngIf="isLoggedIn">
                                 
                                 <a (click)="logOut()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">LogOut</a>
                             
                             </li>
 
-                            <li *ngIf="!this.loginService.isLoggedIn">
+                            <li *ngIf="isLoggedIn">
                                 
                                 <a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
                             
