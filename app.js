@@ -72,10 +72,14 @@ server.use(function (req, res, next) {
 const mysql = require("mysql2");
 
 const connection = mysql.createConnection({
-  host: "us-cdbr-iron-east-04.cleardb.net",
-  user: "bd5cd128b15865",
-  database: "heroku_67534a51b3f7e0f",
-  password: "09c5608d"
+  // host: "us-cdbr-iron-east-04.cleardb.net",
+  // user: "bd5cd128b15865",
+  // database: "heroku_67534a51b3f7e0f",
+  // password: "09c5608d"
+  host: "localhost",
+  user: "root",
+  database: "users",
+  password: "bealong123"
 });
 connection.connect(function(err){
   if (err) {
@@ -90,9 +94,9 @@ connection.connect(function(err){
 
 
 /* ============================================================== */
-server.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname + '/dist/user-system/index.html'))
-});
+// server.get("/*", function (req, res) {
+//   res.sendFile(path.join(__dirname + '/dist/user-system/index.html'))
+// });
 
 
 
