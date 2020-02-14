@@ -69,28 +69,28 @@ server.use(function (req, res, next) {
 
 
 /* =====================CONNECT DATABASE MYSQL===================== */
-const mysql = require("mysql2");
+// const mysql = require("mysql2");
 
-const connection = mysql.createConnection({
-  host: "us-cdbr-iron-east-04.cleardb.net",
-  user: "b5bec95840a84d",
-  database: "heroku_711fe32cc04199e",
-  password: "f8461cf6"
-//   // host: "localhost",
-//   // user: "root",
-//   // database: "users",
-//   // password: "bealong123"
-});
-// const connection = mysql.createConnection('mysql://b5bec95840a84d:f8461cf6@us-cdbr-iron-east-04.cleardb.net/heroku_711fe32cc04199e?reconnect=true')
+// const connection = mysql.createConnection({
+//   host: "us-cdbr-iron-east-04.cleardb.net",
+//   user: "b5bec95840a84d",
+//   database: "heroku_711fe32cc04199e",
+//   password: "f8461cf6"
+// //   // host: "localhost",
+// //   // user: "root",
+// //   // database: "users",
+// //   // password: "bealong123"
+// });
+// // const connection = mysql.createConnection('mysql://b5bec95840a84d:f8461cf6@us-cdbr-iron-east-04.cleardb.net/heroku_711fe32cc04199e?reconnect=true')
 
-connection.connect(function(err){
-  if (err) {
-      return console.error("Ошибка: " + err.message);
-    }
-    else{
-      console.log("Подключение к серверу MySQL успешно установлено");
-    }
-});
+// connection.connect(function(err){
+//   if (err) {
+//       return console.error("Ошибка: " + err.message);
+//     }
+//     else{
+//       console.log("Подключение к серверу MySQL успешно установлено");
+//     }
+// });
 
 
 /* ============================================================== */
