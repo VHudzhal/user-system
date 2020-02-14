@@ -19,3 +19,9 @@ header .logo .logo-navigate nav ul li a{
 header .logo .logo-navigate nav ul li a:hover{
     color: red;
 }
+
+
+footer{
+    padding-top: 100px;
+    text-align: center;
+}

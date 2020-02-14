@@ -47,7 +47,6 @@ export class LoginComponent implements OnInit, AfterViewInit {
       next: (user: IUser) => {
         this.localStorageSave(user)
         this.loginService.currentUser = user['user']
-        console.log(user)
         this.loginForm.reset();
         this.router.navigate(["/users"]);
       },

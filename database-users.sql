@@ -34,14 +34,12 @@ create table entitlements (
 alter table entitlements add foreign key (user_id) references users(id);
 
 insert into users  (name, login, email, password, created_at, update_at, admin) values 
-    ("Misha", "nixage", "misha@mail.ru", 12345, "2020-01-02", "2020-01-02", true),
+    ("Misha", "admin", "misha@mail.ru", 12345, "2020-01-02", "2020-01-02", true),
     ("Sasha", "agent", "sasha@mail.ru", 54321, "2020-01-02", "2020-01-02", false);
     
 insert into entitlements (can_view_users, can_edit_users, can_delete_users, can_view_details, can_view_details_full, can_edit_users_full, user_id) values 
     (true, true, true, true, true, true, 1),
     (true, true, false, true, false, false, 2);
 
-select u.name, u.login, u.password, u.created_at, u.update_at, u.admin, e.can_view_users, e.can_edit_users, e.can_delete_users, e.can_view_details, e.can_view_details_full, e.can_edit_users_full from users u
-	join entitlements e on e.user_id = u.id
-    where login = 'agent';
+select * from users;
     

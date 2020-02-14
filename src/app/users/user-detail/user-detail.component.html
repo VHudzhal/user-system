@@ -17,8 +17,8 @@
         
         <div class="entitlements">
     
-            <button *ngIf="!showEntitlements" [disabled]='(currentUser.can_view_details_full === 1) || (currentUser.id === userDetail?.id)? false: true'
-                    [routerLink]="['',{ outlets: {userEntitlements: ['entitlements'] }}]"  [queryParams]="{ userId: userDetail?.id}" 
+            <button *ngIf="!showEntitlements" [disabled]='(currentUser.can_view_details_full === 1) || (currentUser.id === currentShowUserDetail?.id)? false: true'
+                    [routerLink]="['',{ outlets: {userEntitlements: ['entitlements'] }}]"  [queryParams]="{ userId: currentShowUserDetail?.id}" 
                     (click)="getShowEntitlements">
             Show Entitlements
             </button>

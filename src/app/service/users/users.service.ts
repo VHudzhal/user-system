@@ -13,8 +13,8 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class UserService {
 
-  // baseUrl = 'http://localhost:3001/users';
-  baseUrl = '/users';
+  baseUrl = 'http://localhost:3001/users';
+  // baseUrl = '/users';
   users: Array<IUser>;
 
   constructor(private http: HttpClient) { 

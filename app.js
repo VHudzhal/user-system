@@ -36,7 +36,7 @@ let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
 passport.use(strategy);
 
 /* ===========================SERVER USE=========================== */
-server.use(express.static(__dirname + '/dist/user-system'))
+// server.use(express.static(__dirname + '/dist/user-system'))
 
 server.use(jsonParser);
 
@@ -69,38 +69,38 @@ server.use(function (req, res, next) {
 
 
 /* =====================CONNECT DATABASE MYSQL===================== */
-// const mysql = require("mysql2");
+const mysql = require("mysql2");
 
-// const connection = mysql.createConnection({
-//   host: "us-cdbr-iron-east-04.cleardb.net",
-//   user: "b5bec95840a84d",
-//   database: "heroku_711fe32cc04199e",
-//   password: "f8461cf6"
-// //   // host: "localhost",
-// //   // user: "root",
-// //   // database: "users",
-// //   // password: "bealong123"
-// });
-// // const connection = mysql.createConnection('mysql://b5bec95840a84d:f8461cf6@us-cdbr-iron-east-04.cleardb.net/heroku_711fe32cc04199e?reconnect=true')
-
-// connection.connect(function(err){
-//   if (err) {
-//       return console.error("Ошибка: " + err.message);
-//     }
-//     else{
-//       console.log("Подключение к серверу MySQL успешно установлено");
-//     }
-// });
-
-
-/* ============================================================== */
-
-
-
-/* ============================================================== */
-server.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname + '/dist/user-system/index.html'))
+const connection = mysql.createConnection({
+  // host: "us-cdbr-iron-east-04.cleardb.net",
+  // user: "b5bec95840a84d",
+  // database: "heroku_711fe32cc04199e",
+  // password: "f8461cf6"
+  host: "localhost",
+  user: "root",
+  database: "users",
+  password: "bealong123"
 });
+// const connection = mysql.createConnection('mysql://b5bec95840a84d:f8461cf6@us-cdbr-iron-east-04.cleardb.net/heroku_711fe32cc04199e?reconnect=true')
+
+connection.connect(function(err){
+  if (err) {
+      return console.error("Ошибка: " + err.message);
+    }
+    else{
+      console.log("Подключение к серверу MySQL успешно установлено");
+    }
+});
+
+
+/* ============================================================== */
+
+
+
+/* ============================================================== */
+// server.get("/*", function (req, res) {
+//   res.sendFile(path.join(__dirname + '/dist/user-system/index.html'))
+// });
 
 
 
@@ -110,7 +110,7 @@ server.get("/users", passport.authenticate("jwt", {session: false}), function(re
     if (err){
       res.status(500).json({err: 'mysql faild'})
     }
-    res.status(200).json({result: result})
+    res.status(200).json(result)
     return
   })
 })
@@ -135,7 +135,7 @@ server.post("/users", passport.authenticate("jwt", {session: false}), function (
 server.get("/users/:id", passport.authenticate("jwt", {session: false}), function (req, res) {
   const id = req.params.id
   const select = `
-          select u.id, u.name, u.login, u.email, u.password, u.created_at, u.update_at, u.admin, e.can_view_users, e.can_edit_users, 
+          select u.id, u.name, u.login, u.email, u.created_at, u.update_at, u.admin, e.can_view_users, e.can_edit_users, 
           e.can_delete_users, e.can_view_details, e.can_view_details_full, e.can_edit_users_full from users u
           join entitlements e on e.user_id = u.id
           where u.id=?`
@@ -242,7 +242,7 @@ server.post("/auth/login", function(req, res, next) {
       if (err){
         res.status(500).json({err: err})
       }
-      
+      console.log(result)
       try{
         if (result.length === 0){
           throw ({msg: "User not found", status: 403})

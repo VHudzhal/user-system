@@ -9,10 +9,6 @@ font-family: 'Anton', sans-serif;
 */
 @import '@angular/material/prebuilt-themes/purple-green.css';
 
-html{
-    margin-left: calc(100vw - 100%) !important;
-    margin-right: 0 !important;
-}
 html, body {
     margin: 0;  
 }

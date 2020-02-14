@@ -10,8 +10,8 @@ import { IUser } from '../users/userInterface';
 })
 export class LoginService {
 
-  // baseUrl = 'http://localhost:3001/auth/';
-  baseUrl = '/auth/';
+  baseUrl = 'http://localhost:3001/auth/';
+  // baseUrl = '/auth/';
 
   currentUser: IUser;
   
@@ -22,7 +22,6 @@ export class LoginService {
   constructor(private http: HttpClient, private router: Router) { }
 
   login(obj: {login: string, password: string}): Observable<IUser>{
-    console.log("login")
     return this.http.post<IUser>(this.baseUrl + 'login', {login: obj.login, password: obj.password}).pipe(
       tap( data => {
         if (data['status'] === 403){

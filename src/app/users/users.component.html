@@ -16,7 +16,7 @@
             <fa-icon *ngIf="currentUser.can_delete_users === 1 ? true: false" (click)="deleteUser(user.id)" [icon]='faTrash' style="padding: 10px"></fa-icon>
             <tr *ngIf="(currentUser.id === user.id) || (currentUser.can_view_users === 1) ? true: false"
                 [ngbTooltip]="user.id === currentUser.id ? 'Your Profile': false"
-                [routerLink]='user.id'
+                [routerLink]="user.id"
                 placement="right"
                 class="user-info animated" 
                 [class.bg-black]="i%2 !== 0"

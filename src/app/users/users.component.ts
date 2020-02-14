@@ -32,7 +32,6 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   constructor(private userService: UserService, private notify: NotifyService, private loginService: LoginService) { 
     this.currentUser = this.loginService.currentUser;
-    console.log(this.currentUser)
   }
 
   ngOnInit() {
@@ -71,7 +70,6 @@ export class UsersComponent implements OnInit, OnDestroy {
   getUsers(): void{
     this.subscription = this.userService.getUsers().subscribe(users => {
       this.users = users
-      console.log(this.users)
       this.collectionSize = this.users.length
     }, error => {
       console.log(error)

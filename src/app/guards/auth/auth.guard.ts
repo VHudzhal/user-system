@@ -20,9 +20,6 @@ export class AuthGuard implements CanLoad, CanActivate {
       this.pageLoad = true
       return true
     }
-    if (this.pageLoad){
-      this.notify.showError("Please sign-in or sign-up", "Error")
-    }
     this.notify.showError("Please sign-in or sign-up", "Error")
     this.router.navigateByUrl('login')
     return false
@@ -33,9 +30,6 @@ export class AuthGuard implements CanLoad, CanActivate {
     if (this.loginService.isLoggedIn){
       this.pageLoad = true
       return true
-    }
-    if (this.pageLoad){
-      this.notify.showError("Please sign-in or sign-up", "Error")
     }
     this.notify.showError("Please sign-in or sign-up", "Error")
     this.router.navigateByUrl('login')
