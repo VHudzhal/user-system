@@ -36,7 +36,7 @@ let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
 passport.use(strategy);
 
 /* ===========================SERVER USE=========================== */
-// server.use(express.static(__dirname + '/dist/user-system'))
+server.use(express.static(__dirname + '/dist/user-system'))
 
 server.use(jsonParser);
 
@@ -69,18 +69,19 @@ server.use(function (req, res, next) {
 
 
 /* =====================CONNECT DATABASE MYSQL===================== */
-const mysql = require("mysql2");
+const mysql = require("mysql");
 
-const connection = mysql.createConnection({
-  // host: "us-cdbr-iron-east-04.cleardb.net",
-  // user: "bd5cd128b15865",
-  // database: "heroku_67534a51b3f7e0f",
-  // password: "09c5608d"
-  host: "localhost",
-  user: "root",
-  database: "users",
-  password: "bealong123"
-});
+// const connection = mysql.createConnection({
+//   host: "us-cdbr-iron-east-04.cleardb.net",
+//   user: "b5bec95840a84d",
+//   database: "heroku_711fe32cc04199e",
+//   password: "f8461cf6"
+//   // host: "localhost",
+//   // user: "root",
+//   // database: "users",
+//   // password: "bealong123"
+// });
+const connection = mysql.createConnection('mysql://b5bec95840a84d:f8461cf6@us-cdbr-iron-east-04.cleardb.net/heroku_711fe32cc04199e?reconnect=true')
 connection.connect(function(err){
   if (err) {
       return console.error("Ошибка: " + err.message);
@@ -94,15 +95,18 @@ connection.connect(function(err){
 
 
 /* ============================================================== */
-// server.get("/*", function (req, res) {
-//   res.sendFile(path.join(__dirname + '/dist/user-system/index.html'))
-// });
+server.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname + '/dist/user-system/index.html'))
+});
 
 
 
 server.get("/users", passport.authenticate("jwt", {session: false}), function(req, res){
   const select = `select * from users`
   connection.query(select, (err, result) => {
+    if (err){
+      res.status(500).json({err: 'mysql faild'})
+    }
     res.status(200).json({result: result})
     return
   })
@@ -116,8 +120,10 @@ server.post("/users", passport.authenticate("jwt", {session: false}), function (
     if (err){
       res.status(500).json({err: err})
     }
-    console.log(result)
     connection.query(`SET FOREIGN_KEY_CHECKS = 0; insert into entitlements (can_view_users, user_id) values(true, ${result.insertId})`, function(err, result){
+      if (err){
+        res.status(500).json({err: err})
+      }
       res.status(200).json(`Users ${req.body.name} added`)
     })
   })
@@ -152,8 +158,6 @@ server.get("/users/:id/entitlements", passport.authenticate("jwt", {session: fal
 // Update user entitlements 
 server.put("/users/:id/add-entitlements", passport.authenticate("jwt", {session: false}), function (req, res){
   const { id, entitlements } = req.body
-  console.log(entitlements)
-  console.log(id)
   const update = `SET FOREIGN_KEY_CHECKS = 0; update entitlements set ${entitlements}=true where user_id=?`
   connection.query(update, [id], function(err, result){
     if (err){
@@ -174,8 +178,6 @@ server.put("/users/:id/add-entitlements", passport.authenticate("jwt", {session:
 
 server.put("/users/:id/delete-entitlements", passport.authenticate("jwt", {session: false}), function (req, res){
   const { id, entitlements } = req.body
-  console.log(entitlements)
-  console.log(id)
   const update = `SET FOREIGN_KEY_CHECKS = 0; update entitlements set ${entitlements}=false where user_id=?`
   connection.query(update, [id], function(err, result){
     if (err){
@@ -213,7 +215,7 @@ server.delete("/users/:id", passport.authenticate("jwt", {session: false}), func
   const deleteEntitlements = `SET FOREIGN_KEY_CHECKS = 0; delete from entitlements where user_id=?`;
   connection.query(deleteEntitlements, [userId], function(err, result){ 
 
-    const deleteUser = `delete from users where id=?`
+    const deleteUser = `SET FOREIGN_KEY_CHECKS = 0; delete from users where id=?`
     connection.query(deleteUser, [userId], function( err, result ){
       if (err){
         res.status(500).json({err: err})
@@ -237,7 +239,7 @@ server.post("/auth/login", function(req, res, next) {
       if (err){
         res.status(500).json({err: err})
       }
-      console.log(result.length + "login")
+      
       try{
         if (result.length === 0){
           throw ({msg: "User not found", status: 403})
@@ -259,7 +261,6 @@ server.post("/auth/login", function(req, res, next) {
         }
     
       } catch(err){
-        console.log("error")
         res.send(err)
         return
       }
@@ -272,7 +273,6 @@ server.post("/auth/login", function(req, res, next) {
 // LOGOUT
 server.post("/auth/logout", passport.authenticate("jwt", {session: false}), function(req, res){
   const {refreshToken} = req.body
-  console.log(refreshToken)
   deleteRefreshToken(refreshToken)
   res.status(200).json({msg: 'succes'})
   return
@@ -281,14 +281,12 @@ server.post("/auth/logout", passport.authenticate("jwt", {session: false}), func
 // Return renewed auth tiket witch user for system access (Authorization - required)
 server.post("/auth/refreshToken", function (req, res){
   const { refreshToken } = req.body;
-  console.log(refreshToken)
   const select = 'select * from refreshToken where refreshToken=?'
   connection.query(select, [refreshToken], function(err, result){
     if (err){
       res.status(500).json({err: err})
       return
     }
-    console.log(result.length +  "refresh")
     if (result.length !== 0){
       deleteRefreshToken(refreshToken)
       let payload = { id: result[0].id };
