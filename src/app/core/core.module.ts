@@ -24,7 +24,6 @@ import {MatButtonModule} from '@angular/material/button';
 
 
 
-
 @NgModule({
   declarations: [AppComponent, UserEntitlementsComponent],
   imports: [
@@ -44,7 +43,8 @@ import {MatButtonModule} from '@angular/material/button';
     MatButtonModule,
 
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+
   ],
   exports: [
   ],

@@ -23,7 +23,7 @@ export class UsersComponent implements OnInit, OnDestroy {
 
   faTrash = faTrash;
 
-  users: Array<IUser> = [];
+  users: Array<IUser>;
   subscription:SubscriptionLike;
 
   currentUser: IUser;
@@ -71,11 +71,21 @@ export class UsersComponent implements OnInit, OnDestroy {
   }
 
   getUsers(): void{
-    this.subscription = this.userService.getUsers().subscribe(users => {
-      this.users = users
-      this.collectionSize = this.users.length
-    }, error => {
-      console.log(error)
+    // this.subscription = this.userService.getUsers().subscribe((users: Array<IUser>) => {
+    //   this.users = users
+    //   this.collectionSize = this.users.length
+    // }, error => {
+    //   console.log(error)
+    // })
+
+    this.subscription = this.userService.getUsers().subscribe({
+      next: (users: Array<IUser>) => {
+        this.users = users;
+        this.collectionSize = this.users.length
+      },
+      error: (error) => {
+        console.log(error)
+      }
     })
   }
 
@@ -86,6 +96,16 @@ export class UsersComponent implements OnInit, OnDestroy {
       this.notify.showSuccess(data['msg'], 'User')
     }, error => {
       this.notify.showError('User not delete', 'User')
+    })
+    
+    this.userService.deleteUserById(id).subscribe({
+      next: (data) => {
+        this.users = this.users.filter( user => user.id != id)
+        this.notify.showSuccess(data['msg'], 'User')
+      },
+      error: error => {
+        this.notify.showError('User not delete', 'User')
+      }
     })
   }
   

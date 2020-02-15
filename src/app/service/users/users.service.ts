@@ -13,17 +13,17 @@ import { catchError, map } from 'rxjs/operators';
 })
 export class UserService {
 
-  baseUrl = 'http://localhost:3001/users';
-  // baseUrl = '/users';
+  // baseUrl = 'http://localhost:3001/users';
+  baseUrl = '/users';
   users: Array<IUser>;
 
   constructor(private http: HttpClient) { 
   }
 
   
-  getUsers(): Observable<IUser[]>{
+  getUsers(): Observable<Array<IUser>>{
     const headers = new HttpHeaders().set("access-token", localStorage.getItem("access_token"))
-    return this.http.get<IUser[]>(this.baseUrl).pipe(
+    return this.http.get<Array<IUser>>(this.baseUrl).pipe(
       catchError( (err: HttpErrorResponse) => {
         console.log(err)
         return throwError(err)
@@ -39,7 +39,7 @@ export class UserService {
     return this.http.put(this.baseUrl + `/${id}`, {id: id, name: userName, login:userLogin})
   }
 
-  deleteUserById(id: number){
+  deleteUserById(id: number): Observable<Object>{
     return this.http.delete(this.baseUrl + `/${id}`)
   }
 
