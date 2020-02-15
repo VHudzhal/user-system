@@ -34,8 +34,8 @@ create table entitlements (
 alter table entitlements add foreign key (user_id) references users(id);
 
 insert into users  (name, login, email, password, created_at, update_at, admin) values 
-    ("Misha", "admin", "misha@mail.ru", 12345, "2020-01-02", "2020-01-02", true),
-    ("Sasha", "agent", "sasha@mail.ru", 54321, "2020-01-02", "2020-01-02", false);
+    ("Misha", "admin", "misha@mail.ru", "admin", "2020-01-02", "2020-01-02", true),
+    ("Sasha", "agent", "sasha@mail.ru", "agent", "2020-01-02", "2020-01-02", false);
     
 insert into entitlements (can_view_users, can_edit_users, can_delete_users, can_view_details, can_view_details_full, can_edit_users_full, user_id) values 
     (true, true, true, true, true, true, 1),
