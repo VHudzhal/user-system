@@ -72,14 +72,14 @@ server.use(function (req, res, next) {
 const mysql = require("mysql2");
 
 const connection = mysql.createConnection({
-  host: "us-cdbr-iron-east-04.cleardb.net",
-  user: "b5bec95840a84d",
-  database: "heroku_711fe32cc04199e",
-  password: "f8461cf6"
-  // host: "localhost",
-  // user: "root",
-  // database: "users",
-  // password: "bealong123"
+  // host: "us-cdbr-iron-east-04.cleardb.net",
+  // user: "b5bec95840a84d",
+  // database: "heroku_711fe32cc04199e",
+  // password: "f8461cf6"
+  host: "localhost",
+  user: "root",
+  database: "users",
+  password: "bealong123"
 });
 // const connection = mysql.createConnection('mysql://b5bec95840a84d:f8461cf6@us-cdbr-iron-east-04.cleardb.net/heroku_711fe32cc04199e?reconnect=true')
 
@@ -108,7 +108,6 @@ server.get("/users", passport.authenticate("jwt", {session: false}), function(re
     res.status(200).json(result)
     return
   })
-  // res.status(200).json({resul:"asd"})
 })
 
 server.post("/users", passport.authenticate("jwt", {session: false}), function (req, res) {
@@ -331,9 +330,9 @@ server.use(function(err, req, res, next) {
   }
 });
 
-server.get("/*", function (req, res) {
-  res.sendFile(path.join(__dirname + '/dist/user-system/index.html'))
-});
+// server.get("/*", function (req, res) {
+//   res.sendFile(path.join(__dirname + '/dist/user-system/index.html'))
+// });
 
 // server.listen(process.env.PORT || 3001); 
 server.listen(3001, function () {
