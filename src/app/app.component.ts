@@ -7,9 +7,7 @@ import { LoginService } from './service/login/login.service';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  animations: [
-    bounceAnimation
-  ]
+  animations: [bounceAnimation]
 })
 export class AppComponent {
   title = 'user-system';

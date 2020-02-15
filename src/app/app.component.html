@@ -19,13 +19,13 @@
                         <ul>
                             <li>
                                 
-                                <a routerLink="/my-page" (click)="getMyPage()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">My-page</a>
+                                <a routerLink="/my-page" (click)="getMyPage()" routerLinkActive="active" >My-page</a>
                             
                             </li>
 
                             <li>
                                 
-                                <a routerLink="/dashboard" (click)="getDashboard()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Dashboard</a>
+                                <a routerLink="/dashboard" (click)="getDashboard()" routerLinkActive="active" >Dashboard</a>
                             
                             </li>
 
@@ -37,13 +37,13 @@
 
                             <li *ngIf="isLoggedIn">
                                 
-                                <a routerLink="/logout" (click)="logOut()" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">LogOut</a>
+                                <a (click)="logOut()" routerLinkActive="active" >LogOut</a>
                             
                             </li>
 
                             <li *ngIf="!isLoggedIn">
                                 
-                                <a routerLink="/login" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Login</a>
+                                <a routerLink="/login" routerLinkActive="active">Login</a>
                             
                             </li>
 

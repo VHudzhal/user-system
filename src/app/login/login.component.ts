@@ -9,10 +9,13 @@ import { NotifyService } from '../service/notification/notify.service';
 import { Router } from '@angular/router'
 import { IUser } from '../service/users/userInterface';
 
+import { bounceAnimation } from '../animation/animated-router-outlet';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
+  animations: [bounceAnimation]
 })
 export class LoginComponent implements OnInit, AfterViewInit {
 

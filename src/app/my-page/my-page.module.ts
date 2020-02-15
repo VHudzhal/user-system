@@ -9,7 +9,7 @@ import { MyPageComponent } from './my-page.component';
   declarations: [MyPageComponent],
   imports: [
     CommonModule,
-    MyPageRoutingModule
+    MyPageRoutingModule,
   ]
 })
 export class MyPageModule { }

@@ -36,7 +36,7 @@ let strategy = new JwtStrategy(jwtOptions, function(jwt_payload, next) {
 passport.use(strategy);
 
 /* ===========================SERVER USE=========================== */
-// server.use(express.static(__dirname + '/dist/user-system'))
+server.use(express.static(__dirname + '/dist/user-system'))
 
 server.use(jsonParser);
 
@@ -98,11 +98,6 @@ connection.connect(function(err){
 
 
 /* ============================================================== */
-// server.get("/*", function (req, res) {
-//   res.sendFile(path.join(__dirname + '/dist/user-system/index.html'))
-// });
-
-
 
 server.get("/users", passport.authenticate("jwt", {session: false}), function(req, res){
   const select = `select * from users`
@@ -113,6 +108,7 @@ server.get("/users", passport.authenticate("jwt", {session: false}), function(re
     res.status(200).json(result)
     return
   })
+  // res.status(200).json({resul:"asd"})
 })
 
 server.post("/users", passport.authenticate("jwt", {session: false}), function (req, res) {
@@ -335,5 +331,12 @@ server.use(function(err, req, res, next) {
   }
 });
 
-server.listen(process.env.PORT || 3001); 
+server.get("/*", function (req, res) {
+  res.sendFile(path.join(__dirname + '/dist/user-system/index.html'))
+});
+
+// server.listen(process.env.PORT || 3001); 
+server.listen(3001, function () {
+  console.log('Example app listening on port 3001');
+});
 

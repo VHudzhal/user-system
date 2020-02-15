@@ -10,11 +10,14 @@ import { LoginService } from '../service/login/login.service';
 
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
+import { bounceAnimation } from '../animation/animated-router-outlet';
+
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
-  styleUrls: ['./users.component.css']
+  styleUrls: ['./users.component.css'],
+  animations: [bounceAnimation]
 })
 export class UsersComponent implements OnInit, OnDestroy {
 
