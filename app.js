@@ -79,7 +79,7 @@ const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
   database: "users",
-  password: "bealong123"
+  password: ""
 });
 // const connection = mysql.createConnection('mysql://b5bec95840a84d:f8461cf6@us-cdbr-iron-east-04.cleardb.net/heroku_711fe32cc04199e?reconnect=true')
 
